@@ -1,0 +1,94 @@
+package generalassembly.yuliyakaleda.myapplication;
+
+import android.os.AsyncTask;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+  private Button slow;
+  private Button fast;
+  private EditText input;
+  private TextView message;
+  private ProgressBar progressbar;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    input = (EditText) findViewById(R.id.input);
+    message = (TextView) findViewById(R.id.text);
+    slow = (Button) findViewById(R.id.slow_button);
+    fast = (Button) findViewById(R.id.fast_button);
+    progressbar = (ProgressBar)findViewById(R.id.progressBar);
+    slow.setOnClickListener(this);
+    fast.setOnClickListener(this);
+  }
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.slow_button:
+        SystemClock.sleep(5000);
+        String usersInput = input.getText().toString();
+        message.setText(usersInput);
+        break;
+      case R.id.fast_button:
+        performInWorkerThread();
+        break;
+      default:
+        break;
+    }
+  }
+
+  private void performInWorkerThread() {
+    FastButtonAsync async = new FastButtonAsync();
+    async.execute();
+  }
+
+  private class FastButtonAsync extends AsyncTask<Void, Integer, Void> {
+
+    @Override
+    protected Void doInBackground(Void... params) {
+        SystemClock.sleep(1000);
+        publishProgress(new Integer(20));
+        SystemClock.sleep(1000);
+        publishProgress(new Integer(40));
+        SystemClock.sleep(1000);
+        publishProgress(new Integer(60));
+        SystemClock.sleep(1000);
+        publishProgress(new Integer(80));
+        SystemClock.sleep(1000);
+        publishProgress(new Integer(100));
+
+        return null;
+    }
+
+      @Override
+      protected void onPreExecute() {
+          super.onPreExecute();
+          progressbar.setVisibility(View.VISIBLE);
+      }
+
+      @Override
+      protected void onProgressUpdate(Integer... values) {
+          super.onProgressUpdate(values);
+          progressbar.setProgress(values[0].intValue());
+      }
+
+      @Override
+    protected void onPostExecute(Void aVoid) {
+      super.onPostExecute(aVoid);
+      progressbar.setVisibility(View.GONE);
+      String usersInput = input.getText().toString();
+      message.setText(usersInput);
+    }
+  }
+}
+
