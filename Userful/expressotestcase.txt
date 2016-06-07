@@ -1,0 +1,22 @@
+@RunWith(AndroidJUnit4.class)
+
+    public class MainActivityTest {
+
+        @Rule
+        public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+        @Test
+        public void testAddButton() throws Exception {
+
+            onView(withId(R.id.editText1)).perform(clearText(), typeText(7), closeSoftKeyboard());
+
+            onView(withId(R.id.editText2)).perform(clearText(), typeText(11.07), closeSoftKeyboard());
+
+            onView(withId(R.id.addButton)).perform(click());
+
+            onView(withId(R.id.answerTextView)).check(matches(withText(8.07)));
+
+
+        }
+
+    }
