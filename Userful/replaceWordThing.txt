@@ -1,0 +1,42 @@
+
+
+var h = Hello
+var g = Goodbye
+
+console.log(h);
+console.log(g);
+
+hChar = h.charAt(0);
+gChar = g.charAt(0);
+console.log(hChar);
+
+
+
+function method1( word1,   word2){
+
+if (word1.charAt(0) == word1.charAt(0)){
+var replaceingworld1 = word1.replace(word1.charAt(0), word2.charAt(0));
+console.log(replaceingworld1);
+}
+if (word2.charAt(0) == word2.charAt(0)){
+var replaceingworld2 = word2.replace(word2.charAt(0), word1.charAt(0));
+console.log(replaceingworld2);
+}
+
+
+}
+
+method1(Mexy, Soon);
+
+// if (h.charAt(0) == hChar){
+// var replaceingworld1 = h.replace(h.charAt(0), g.charAt(0));
+// console.log(replaceingworld1);
+// }
+// if (g.charAt(0) == gChar){
+// var replaceingworld2 = g.replace(g.charAt(0), h.charAt(0));
+// console.log(replaceingworld2);
+// }
+
+
+
+
